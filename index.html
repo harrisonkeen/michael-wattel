@@ -1,0 +1,923 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Michael Wattel — Actor</title>
+<meta name="description" content="Michael Wattel, Vancouver actor. Demo reels, photos and credits.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500..700;1,500..700&family=Albert+Sans:wght@400..600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #110e0c;        /* page + footer: black marble */
+    --band: var(--ink);    /* reel band: the footer's near-black (v7.1) */
+    --wall: #1b1512;       /* the portrait hall */
+    --ivory: #efe7da;      /* text on dark, credits page */
+    --stone: #a99f92;      /* secondary text on dark */
+    --umber: #6a5a48;      /* secondary text on ivory */
+    --gold: #c9a45c;       /* kintsugi gold */
+    --gold-hi: #f5dc9e;    /* the bright seam */
+    --gold-ink: #85622a;   /* gold on ivory */
+    --photo-bg: #22180f;   /* sampled from the hero photo's backdrop */
+    --gutter: clamp(16px, 5vw, 72px);
+    --text: "Albert Sans", "Helvetica Neue", Arial, sans-serif;
+    --display: "Cormorant Garamond", Didot, Georgia, serif;
+    --d-weight: 600;
+    --d-style: normal;
+    --d-case: uppercase;
+    --d-track: .05em;
+    --gild: linear-gradient(100deg, #a77a35 0%, #f1d796 16%, #c49a52 33%, #8a6428 50%, #e7c983 68%, #b48b45 84%, #f4dfa6 100%);
+    /* metal tokens: every gold surface reads these, so a palette swaps them all at once */
+    --frame-metal: linear-gradient(135deg, #6e4f1f, #e6cb86 18%, #8f6c2c 38%, #f2dc9c 56%, #7a5822 78%, #c9a45c);
+    --bar-metal: linear-gradient(#e8cf8a, #8a6a2c);
+    --plate-metal: linear-gradient(135deg, #b8924c, #ecd394 45%, #b08843);
+    --plate-text: #3b2a10;
+    --lamp: rgba(255, 222, 160, .16);
+    --shine-c: rgba(255, 248, 225, .95);
+    --seam-hi: #fff0c2; --seam-glow: #e6b85c;
+    --l1: #b8893e; --l2: #f5dc9e; --l3: #c49a52; --l4: #f1d796; --l5: #a77a35;
+    --f1: #e7c983; --f2: #b48b45; --f3: #f4dfa6;
+    --on-metal: var(--ink);
+  }
+  #goldline stop:nth-child(1) { stop-color: var(--l1); } #goldline stop:nth-child(2) { stop-color: var(--l2); } #goldline stop:nth-child(3) { stop-color: var(--l3); }
+  #goldline stop:nth-child(4) { stop-color: var(--l4); } #goldline stop:nth-child(5) { stop-color: var(--l5); }
+  #gold-flat stop:nth-child(1) { stop-color: var(--f1); } #gold-flat stop:nth-child(2) { stop-color: var(--f2); } #gold-flat stop:nth-child(3) { stop-color: var(--f3); }
+
+  *, *::before, *::after { box-sizing: border-box; }
+  html { background: var(--ink); color: var(--ivory); scroll-behavior: smooth; }
+  body { margin: 0; font: 400 17px/1.65 var(--text); -webkit-font-smoothing: antialiased; }
+  img { display: block; max-width: 100%; }
+  a { color: inherit; }
+  button { font: inherit; color: inherit; }
+  :focus-visible { outline: 2px solid var(--gold); outline-offset: 4px; }
+  .wrap { width: min(100% - 2 * var(--gutter), 1280px); margin-inline: auto; }
+  .display { font-family: var(--display); font-weight: var(--d-weight); font-style: var(--d-style); text-transform: var(--d-case); letter-spacing: var(--d-track); line-height: 1; margin: 0; }
+
+  /* faint marble veining, drawn by the browser */
+  .marble { position: relative; isolation: isolate; }
+  .marble::before { content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none; opacity: .07; background-size: 900px 900px;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='900' height='900'%3E%3Cfilter id='m'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.004 .018' numOctaves='5' seed='11'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 .96 0 0 0 0 .9 0 0 0 -9 4.6'/%3E%3C/filter%3E%3Crect width='900' height='900' filter='url(%23m)'/%3E%3C/svg%3E"); }
+
+  /* ---------- Hero: portrait right, gilded name left, kintsugi veins across the backdrop ---------- */
+  .hero { position: relative; height: max(620px, var(--screen, 100svh)); overflow: hidden; isolation: isolate;
+    background: radial-gradient(ellipse 60% 85% at 72% 40%, var(--photo-bg), var(--ink) 92%); }
+  .hero::after { content: ""; position: absolute; inset: auto 0 0 0; height: 22%; z-index: 2; pointer-events: none; background: linear-gradient(transparent, var(--ink)); }
+  .hero-photo { position: absolute; z-index: 1; top: 0; bottom: 0; right: max(var(--gutter), 4vw); aspect-ratio: 2 / 3; }
+  .hero-photo img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 10%;
+    -webkit-mask-image: linear-gradient(to right, transparent, #000 24%, #000 80%, transparent), linear-gradient(transparent, #000 6%, #000 70%, transparent 98%);
+    -webkit-mask-composite: source-in;
+    mask-image: linear-gradient(to right, transparent, #000 24%, #000 80%, transparent), linear-gradient(transparent, #000 6%, #000 70%, transparent 98%);
+    mask-composite: intersect; }
+  .veins { position: absolute; inset: 0; z-index: 0; width: 100%; height: 100%; pointer-events: none; overflow: visible; }
+  .veins path, .seam path.line { fill: none; stroke: url(#goldline); stroke-linecap: round; stroke-linejoin: round; }
+
+  .name { position: absolute; z-index: 3; left: var(--gutter); bottom: 15%; margin: 0; font-size: 140px; filter: drop-shadow(0 6px 26px rgba(0, 0, 0, .55)); }
+  .name .line { position: relative; display: block; width: max-content; padding: 0 .04em .02em; }
+  .name .line + .line { margin-top: .02em; }
+  /* every layer is the same text in the same box: gold leaf, the bright seam, and a passing shine */
+  .layer { display: block; color: transparent; background: var(--gild); -webkit-background-clip: text; background-clip: text; }
+  .layer + .layer { position: absolute; inset: 0; padding: inherit; }
+  .seam-fill { background-image: var(--seam-img); background-size: 100% 100%; background-repeat: no-repeat; }
+  .shine { background-image: linear-gradient(105deg, transparent 40%, var(--shine-c) 50%, transparent 60%); background-size: 300% 100%; background-repeat: no-repeat; background-position: 150% 0; }
+  .crack .top { clip-path: var(--clip-top); }
+  .crack .bot { clip-path: var(--clip-bot); translate: var(--shift, 1.6px 2.2px); }
+  .under { position: absolute; z-index: 3; left: var(--gutter); font-size: 13px; font-weight: 600; letter-spacing: .3em; text-transform: uppercase; color: var(--gold); }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .hero .hero-photo img { opacity: 0; transform: scale(1.035); transition: opacity 1.8s cubic-bezier(.2, .7, .2, 1), transform 2.4s cubic-bezier(.2, .7, .2, 1); }
+    .hero.go .hero-photo img { opacity: 1; transform: none; }
+    .hero .name .line { opacity: 0; transform: translateY(.18em); transition: opacity 1.2s, transform 1.4s cubic-bezier(.2, .7, .2, 1); }
+    .hero.go .name .line { opacity: 1; transform: none; }
+    .hero.go .name .line + .line { transition-delay: .18s; }
+    .hero .under { opacity: 0; transition: opacity 1s 1.2s; }
+    .hero.go .under { opacity: 1; }
+    .hero.gild .shine { transition: background-position 1.6s cubic-bezier(.5, 0, .3, 1); background-position: -50% 0; }
+    /* the break: a jolt, then the seam fills with molten gold and cools */
+    .hero:not(.broken) .crack .bot { translate: none; }
+    .hero:not(.broken) .seam-fill { opacity: 0; }
+    .hero.broken .crack { animation: jolt .32s cubic-bezier(.3, 0, .2, 1); }
+    .hero.broken .seam-fill { animation: molten 2.6s ease-out both; }
+    @keyframes jolt { 20% { transform: translate(-3px, 1px); } 45% { transform: translate(2px, -1px); } 70% { transform: translate(-1px, 0); } }
+    @keyframes molten { 0% { opacity: 0; filter: brightness(2.4) drop-shadow(0 0 6px #ffd98a); } 18% { opacity: 1; } 100% { opacity: 1; filter: none; } }
+    /* undrawn lines stay hidden: a round cap still paints a dot at a hidden dash's end, so each line only becomes
+       visible at the moment its own draw starts, and the gap (2) is longer than the line so no dash waits at its far end */
+    .veins path { stroke-dasharray: 1 2; stroke-dashoffset: 1; visibility: hidden; }
+    .hero.broken .veins path { transition: stroke-dashoffset var(--dur, 1.6s) var(--delay, 0s) var(--ease, cubic-bezier(.4, 0, .2, 1)), visibility 0s var(--delay, 0s); stroke-dashoffset: 0; visibility: visible; }
+    /* phones: the hero cracks run at a little over half the time, to match the quicker seams */
+    @media (max-width: 760px) { .hero.broken .veins path { transition: stroke-dashoffset calc(var(--dur, 1.6s) * .55) calc(var(--delay, 0s) * .55) var(--ease, cubic-bezier(.4, 0, .2, 1)), visibility 0s calc(var(--delay, 0s) * .55); } }
+    /* gold-filled chips settle in once the crack reaches them */
+    .veins .chip, .veins .chip-hi { opacity: 0; scale: .5; transform-box: fill-box; transform-origin: center; }
+    .hero.broken .veins .chip, .hero.broken .veins .chip-hi { opacity: 1; scale: 1; transition: opacity .5s var(--delay, 0s), scale .9s var(--delay, 0s) cubic-bezier(.2, .7, .2, 1); }
+    .hero.broken .veins .chip-hi { opacity: .6; }
+    /* the glint: a bright bead of light that runs the length of a main seam, now and then */
+    .veins path.glint { display: block; stroke-dasharray: .06 3; stroke-dashoffset: .08; }
+    .hero.broken .veins path.glint { transition: none; animation: glint var(--gdur, 11s) var(--gdel, 3s) linear infinite; }
+    /* the bead starts and rests fully off the line (.08 / -1.02), so no cap dot sits at either end between runs */
+    @keyframes glint { 0% { stroke-dashoffset: .08; } 24%, 100% { stroke-dashoffset: -1.02; } }
+  }
+  /* crack styles: a uniform line (as now) or hand-made seams that swell and taper, with a molten core */
+  .veins .core { stroke: var(--seam-hi); }
+  .veins .bleed { stroke: var(--gold); }
+  .veins .chip { fill: url(#goldline); stroke: none; stroke-dasharray: none; }
+  .veins .chip-hi { fill: var(--seam-hi); stroke: none; stroke-dasharray: none; }
+  .veins .glint { display: none; stroke: #fff6dc; }
+
+  /* ---------- Seams: section edges broken and mended in gold ----------
+     The strip paints only the solid side of the break; the neighbour on the other side is cut along the
+     same line (clip-path, set in drawSeams), so the colour change sits exactly under the gold. */
+  .seam { position: relative; z-index: 4; height: 30px; margin-block: -15px; pointer-events: none; overflow-x: clip; }
+  .seam svg { position: absolute; inset: 0; width: 100%; height: 100%; display: block; overflow: visible; }
+  .seam svg .fill-a { fill: var(--a); }
+  .seam svg .fill-b { fill: var(--b); }
+  @media (prefers-reduced-motion: no-preference) {
+    .seam path.line { stroke-dasharray: 1 2; stroke-dashoffset: 1; visibility: hidden; }
+    .seam.on path.line { transition: stroke-dashoffset 2.2s var(--delay, 0s) cubic-bezier(.5, 0, .2, 1), visibility 0s var(--delay, 0s); stroke-dashoffset: 0; visibility: visible; }
+    /* phones: the long slow draw read as lag, so it snaps across fast and settles (branches follow almost at once) */
+    @media (max-width: 760px) { .seam.on path.line { transition: stroke-dashoffset .75s calc(var(--delay, 0s) * .3) cubic-bezier(.2, .7, .2, 1), visibility 0s calc(var(--delay, 0s) * .3); } }
+  }
+
+  /* ---------- Credits edges: the gold seam doesn't sit on cream, so the cream page gets its own edge ---------- */
+  .to-cream { --a: var(--wall); --b: var(--ivory); }
+  .from-cream { --a: var(--ivory); --b: var(--ink); }
+  /* A: deckled paper, the rough edge of heavy stationery, casting a soft shadow on the dark */
+  .seam .shade { fill: none; stroke: rgba(0, 0, 0, .6); stroke-width: 5; filter: url(#soft); }
+  .seam .fibre { fill: none; stroke: rgba(255, 252, 244, .7); stroke-width: .7; }
+
+  /* ---------- Sections ---------- */
+  section { padding-block: clamp(72px, 9vw, 128px); overflow-x: clip; }
+  .footer { overflow-x: clip; }
+  .sec-head { display: flex; align-items: center; gap: 22px; margin-bottom: clamp(30px, 4vw, 52px); }
+  .sec-head h2 { font-size: clamp(46px, 6.2vw, 84px); padding-right: .04em; }
+  .sec-head::after { content: ""; flex: 1; height: 1px; background: linear-gradient(to right, var(--gold), transparent); opacity: .7; }
+
+  /* ---------- Reel: two reels in one gilt frame that takes each video's shape ---------- */
+  /* The band is see-through: its colour sits on ::before, below the gold-dust depth layer (.void), and runs
+     16px past each edge so it fills whatever the jagged seams cut away from the hero and the photo wall. */
+  .reel { position: relative; }
+  .reel::before, .reel::after { content: ""; position: absolute; inset: -16px 0; z-index: -2; pointer-events: none; }
+  .reel::before { background: var(--band); }
+  .reel-body { display: grid; grid-template-columns: auto minmax(260px, 1fr); gap: clamp(32px, 5vw, 80px); align-items: center; }
+  .reel-frame { justify-self: start; padding: 10px; border: 1px solid var(--gold); outline: 1px solid color-mix(in srgb, var(--gold) 45%, transparent); outline-offset: 6px; }
+  .reel-video { position: relative; background: #000; width: var(--vw); height: var(--vh); transition: width .7s cubic-bezier(.6, 0, .2, 1), height .7s cubic-bezier(.6, 0, .2, 1); }
+  .reel { --vw: min(820px, 58vw); --vh: calc(var(--vw) * 646 / 1280); }
+  .reel[data-video="vertical"] { --vh: min(calc(var(--screen, 100svh) * .74), 640px); --vw: calc(var(--vh) * 744 / 1080); }
+  .reel-video video { width: 100%; height: 100%; display: block; object-fit: contain; }
+  .reel-start { position: absolute; inset: 0; border: 0; padding: 0; background: rgba(0, 0, 0, .18); cursor: pointer; display: grid; place-items: center; }
+  .reel-start span { width: 84px; aspect-ratio: 1; border-radius: 50%; display: grid; place-items: center; background: var(--gold); color: var(--ink); box-shadow: 0 0 0 8px color-mix(in srgb, var(--gold) 25%, transparent); transition: transform .25s; }
+  .reel-start svg { width: 24px; margin-left: 6px; }
+  .reel-start:hover span { transform: scale(1.07); }
+  .reel.played .reel-start { display: none; }
+  .hud { position: absolute; inset: auto 0 0 0; display: none; align-items: center; gap: 6px; padding: 32px 10px 10px; background: linear-gradient(transparent, rgba(0, 0, 0, .8)); transition: opacity .3s; }
+  .reel.played .hud { display: flex; }
+  .reel.playing.idle .hud { opacity: 0; }
+  .reel.playing.idle .reel-video { cursor: none; }
+  .hud button { flex: none; width: 34px; height: 34px; display: grid; place-items: center; padding: 0; border: 0; background: none; color: var(--ivory); cursor: pointer; }
+  .hud button:hover { color: var(--gold); }
+  .hud svg { width: 16px; height: 16px; }
+  .hud-seek { flex: 1; min-width: 40px; margin: 0; accent-color: var(--gold); cursor: pointer; }
+  .hud-time { flex: none; font-size: 13px; font-variant-numeric: tabular-nums; white-space: nowrap; }
+  .i-pause, .reel.playing .i-play, .i-muted, .muted .i-sound { display: none; }
+  .reel.playing .i-pause, .muted .i-muted { display: block; }
+  .reel-video:fullscreen { width: 100vw; height: 100vh; }
+  .picker { display: grid; gap: 14px; }
+  .pick { position: relative; display: grid; grid-template-columns: 48px 1fr auto; align-items: center; gap: 16px; padding: 18px 20px; text-align: left; background: none; border: 1px solid color-mix(in srgb, var(--gold) 40%, transparent); cursor: pointer; transition: border-color .2s, background .2s; }
+  .pick:hover { border-color: var(--gold); background: color-mix(in srgb, var(--gold) 6%, transparent); }
+  .pick[aria-pressed="true"] { border-color: var(--gold); background: color-mix(in srgb, var(--gold) 10%, transparent); }
+  .pick .ico { width: 48px; height: 48px; border-radius: 50%; border: 1px solid var(--gold); display: grid; place-items: center; color: var(--gold); }
+  .pick .ico svg { width: 13px; margin-left: 3px; }
+  .pick[aria-pressed="true"] .ico { background: var(--gold); color: var(--ink); }
+  .pick b { display: block; font: var(--d-style) var(--d-weight) 25px/1.1 var(--display); text-transform: var(--d-case); letter-spacing: var(--d-track); white-space: nowrap; }
+  .pick small { display: block; margin-top: 4px; color: var(--stone); font-size: 14.5px; }
+  .pick time { color: var(--stone); font-variant-numeric: tabular-nums; font-size: 14.5px; }
+  .badge { position: absolute; top: -11px; right: 14px; padding: 2px 10px; background: var(--gold); color: var(--ink); font-size: 11px; font-weight: 600; letter-spacing: .16em; text-transform: uppercase; display: none; }
+  .pick[aria-pressed="true"] .badge { display: block; }
+  .badge .now { display: none; }
+  .reel.playing .pick[aria-pressed="true"] .badge .now { display: inline; }
+  .reel.playing .pick[aria-pressed="true"] .badge .sel { display: none; }
+
+  /* ---------- Photos: the portrait hall ---------- */
+  .hall { background: var(--wall); position: relative; isolation: isolate; }
+  /* faint panelling on the wall */
+  .hall::before { content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none;
+    background: radial-gradient(ellipse 70% 60% at 50% 45%, rgba(255, 230, 190, .05), transparent 70%),
+                repeating-linear-gradient(90deg, transparent 0 calc(25% - 1px), rgba(255, 235, 200, .035) calc(25% - 1px) 25%); }
+  .wall { display: grid; grid-template-columns: repeat(4, 1fr); grid-template-areas: "a c c d" "b c c e"; gap: clamp(36px, 4vw, 60px) clamp(24px, 3vw, 44px); align-items: stretch; }
+  .hang { display: grid; grid-template-rows: 1fr auto; gap: 16px; min-width: 0; position: relative; }
+  .hang:nth-child(1) { grid-area: c; } .hang:nth-child(2) { grid-area: a; } .hang:nth-child(3) { grid-area: b; }
+  .hang:nth-child(4) { grid-area: d; } .hang:nth-child(5) { grid-area: e; }
+  /* the picture light: a brass bar and its glow on the wall */
+  .hang::before { content: ""; position: absolute; z-index: 2; left: 50%; top: -14px; width: 38%; height: 7px; translate: -50% 0; border-radius: 4px;
+    background: var(--bar-metal); box-shadow: 0 2px 4px rgba(0, 0, 0, .6); }
+  .hang::after { content: ""; position: absolute; z-index: -1; left: -14%; right: -14%; top: -40px; height: 70%; pointer-events: none;
+    background: radial-gradient(ellipse 50% 60% at 50% 0, var(--lamp), transparent 70%); transition: opacity .4s; opacity: .7; }
+  .hang:hover::after { opacity: 1; }
+  .frame { position: relative; padding: clamp(10px, 1.1vw, 16px); border: 0; cursor: zoom-in; display: block; width: 100%; height: 100%;
+    background: var(--frame-metal);
+    box-shadow: inset 0 0 0 1px rgba(255, 240, 200, .5), inset 0 0 0 3px rgba(60, 40, 10, .55), 0 26px 50px rgba(0, 0, 0, .65); transition: transform .5s cubic-bezier(.2, .7, .2, 1); }
+  .frame::after { content: ""; position: absolute; inset: clamp(10px, 1.1vw, 16px); box-shadow: inset 0 0 0 1px rgba(0, 0, 0, .6), inset 0 0 22px rgba(0, 0, 0, .55); pointer-events: none; }
+  .frame img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 18%; }
+  /* The Golden Boy sits left of centre in his photo: anchor the crop left and zoom a little, so his face lands mid-frame */
+  .frame .crop { display: block; width: 100%; height: 100%; overflow: hidden; }
+  .crop.gb img { object-position: 0 18%; transform: scale(var(--z, 1.22)); transform-origin: 0 6%; }
+  .hang:hover .frame { transform: translateY(-4px); }
+  .hang .frame { aspect-ratio: 2 / 3; height: auto; }
+  .hang:nth-child(1) .frame { height: 100%; aspect-ratio: auto; }
+  .plate { justify-self: center; padding: 5px 14px 4px; min-width: 96px; min-height: 26px; text-align: center; color: var(--plate-text); font: 600 11.5px/1.4 var(--text); letter-spacing: .2em; text-transform: uppercase;
+    background: var(--plate-metal); box-shadow: inset 0 0 0 1px rgba(255, 245, 210, .5), 0 3px 8px rgba(0, 0, 0, .5); }
+
+  /* ---------- Credits: ivory marble, by type in balanced columns ---------- */
+  .credits-sec { background: var(--ivory); color: var(--ink); }
+  .credits-sec.marble::before { opacity: .5; filter: invert(1) sepia(.3); mix-blend-mode: multiply; }
+  .credits { display: grid; grid-template-columns: repeat(var(--cols, 3), 1fr); gap: 0 clamp(28px, 4vw, 56px); padding-bottom: 28px; border-bottom: 1px solid var(--gold-ink); }
+  .credit-keep { display: flow-root; }
+  .credit-col > :first-child h3 { margin-top: 0; }
+  .credits h3 { font: var(--d-style) var(--d-weight) 25px/1.1 var(--display); text-transform: var(--d-case); letter-spacing: var(--d-track); color: var(--gold-ink); margin: 38px 0 6px; padding-bottom: 10px; border-bottom: 1px solid var(--gold-ink); }
+  .credits h3 small { font: 500 14px var(--text); letter-spacing: .08em; color: var(--umber); margin-left: 8px; text-transform: none; }
+  .credit { display: grid; padding: 9px 0 10px; border-bottom: 1px solid rgba(17, 14, 12, .13); }
+  .credit b { font-weight: 600; line-height: 1.35; }
+  .credit i { font-style: normal; font-size: 15px; line-height: 1.45; color: var(--umber); }
+  .credit-col > :last-child .credit:last-child, .credit-col > .credit:last-child { border-bottom: 0; }
+
+  /* ---------- Footer ---------- */
+  .footer { padding-block: clamp(72px, 9vw, 128px) calc(32px + env(safe-area-inset-bottom)); }
+  @media (pointer: coarse) { .footer { padding-bottom: calc(32px + max(34px, env(safe-area-inset-bottom))); } }
+  .footer h2 { font-size: clamp(44px, 7vw, 108px); white-space: nowrap; margin-bottom: clamp(36px, 5vw, 64px); }
+  .foot-grid { display: grid; grid-template-columns: 1.6fr 1fr auto; gap: 36px 56px; align-items: start; }
+  .foot-grid h3 { margin: 0 0 12px; font-size: 13px; font-weight: 600; letter-spacing: .2em; text-transform: uppercase; color: var(--gold); }
+  .agency { margin: 0 0 14px; font-size: 18px; }
+  .agency span { color: var(--stone); }
+  .agents { display: grid; gap: 14px; }
+  .agent b { font-weight: 500; }
+  .email { display: inline-block; font: italic 500 clamp(21px, 2.1vw, 27px)/1.3 "Cormorant Garamond", Georgia, serif; text-decoration-thickness: 1px; text-underline-offset: 6px; text-decoration-color: var(--gold); overflow-wrap: anywhere; }
+  .email:hover { color: var(--gold); }
+  .tel { color: var(--stone); text-decoration: none; white-space: nowrap; }
+  .office { margin-top: 16px; color: var(--stone); font-size: 15px; }
+  .office a { color: var(--stone); }
+  .btns { display: grid; gap: 12px; justify-items: start; }
+  .btn { display: inline-flex; align-items: center; gap: 12px; padding: 14px 24px; background: var(--gold); color: var(--ink); font-weight: 600; letter-spacing: .03em; text-decoration: none; white-space: nowrap; border: 1px solid var(--gold); transition: background .2s, color .2s; }
+  .btn.ghost { background: none; color: var(--ivory); }
+  .btn:hover { background: transparent; color: var(--gold); }
+  .btn.ghost:hover { background: var(--gold); color: var(--ink); }
+  .crest { width: clamp(150px, 15vw, 190px); display: grid; justify-items: center; gap: 10px; }
+  .crest svg { width: 100%; height: auto; overflow: visible; }
+  .crest text { font-family: var(--display); font-weight: var(--d-weight); font-style: var(--d-style); fill: url(#gold-flat); }
+  .motto { font-size: 11px; font-weight: 600; letter-spacing: .32em; color: var(--gold); text-align: center; white-space: nowrap; }
+  .colophon { margin: 64px 0 0; color: var(--stone); font-size: 14px; }
+  .built-by { display: inline-block; margin-left: 1.1em; padding-left: 1.1em; border-left: 1px solid color-mix(in srgb, currentColor 35%, transparent); font-size: 12px; font-weight: 400; letter-spacing: .02em; text-transform: none; opacity: 0.7; }
+  .built-by a { color: inherit; text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 3px; text-decoration-color: color-mix(in srgb, currentColor 45%, transparent); }
+  .built-by a:hover { text-decoration-color: currentColor; }
+  @media (max-width: 600px) { .built-by { display: block; margin: 6px 0 0; padding: 0; border: 0; } }
+
+  /* Lightbox */
+  .lightbox { border: 0; padding: 0; background: transparent; max-width: 100vw; max-height: 100vh; }
+  .lightbox::backdrop { background: rgba(10, 8, 6, .95); }
+  .lightbox img { max-height: 90vh; max-width: 86vw; }
+  .lightbox button { position: fixed; background: var(--ink); color: var(--gold); border: 1px solid var(--gold); border-radius: 50%; width: 52px; height: 52px; font-size: 26px; cursor: pointer; }
+  .lightbox .prev { left: 16px; top: 50%; } .lightbox .next { right: 16px; top: 50%; }
+  .lightbox-close { top: 16px; right: 16px; }
+
+  @media (max-width: 1100px) {
+    .reel-body { grid-template-columns: 1fr; }
+    .reel-frame { justify-self: center; }
+    .reel { --vw: min(100vw - 2 * var(--gutter) - 22px, 820px); }
+    .picker { grid-template-columns: 1fr 1fr; }
+    .reel-copy { order: -1; }
+    .foot-grid { grid-template-columns: 1fr 1fr; }
+    .foot-grid > :first-child { grid-column: 1 / -1; }
+  }
+  @media (max-width: 760px) {
+    body { font-size: 16px; }
+    .hero-photo { inset: 0 0 auto 0; right: 0; width: 100%; height: 80%; aspect-ratio: auto; }
+    .veins { z-index: 2; }
+    .hero-photo img { -webkit-mask-image: linear-gradient(#000 58%, transparent 96%); mask-image: linear-gradient(#000 58%, transparent 96%); }
+    .name { left: 0; right: 0; bottom: 11%; text-align: center; }
+    .name .line { margin-inline: auto; }
+    .under { left: 0; right: 0; text-align: center; font-size: 11px; letter-spacing: .2em; }
+    .reel[data-video="vertical"] { --vw: min(76vw, 360px); --vh: calc(var(--vw) * 1080 / 744); }
+    .picker { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 400px) {
+    /* small phones: the reel cards tighten so "Vertical reel" + its length fit inside the card */
+    .pick { grid-template-columns: 40px 1fr auto; gap: 12px; padding: 15px 14px; }
+    .pick .ico { width: 40px; height: 40px; }
+    .pick b { font-size: 21px; }
+    .pick small, .pick time { font-size: 13.5px; }
+  }
+  @media (max-width: 760px) {
+    .wall { grid-template-columns: 1fr 1fr; grid-template-areas: "c c" "a b" "d e"; gap: 40px 18px; }
+    .hang:nth-child(1) .frame { aspect-ratio: 2 / 3; height: auto; }
+    .crop.gb { --z: 1.27; }
+    .plate { font-size: 10px; letter-spacing: .14em; min-width: 0; padding-inline: 10px; }
+    /* phones: the heading is too long for one line at a readable size, so it breaks after the ampersand */
+    .footer h2 { font-size: 12.5vw; white-space: normal; line-height: 1.02; }
+    .foot-grid { grid-template-columns: 1fr; }
+    .crest { justify-self: center; }
+    .lightbox .prev, .lightbox .next { top: auto; bottom: 16px; }
+  }
+  /* ---------- Featured: three IMDb posters in thin gilt frames, optional on-set strip ---------- */
+  .featured { margin-top: clamp(64px, 8vw, 110px); text-align: center; }
+  .featured .sec-head { justify-content: center; }
+  .featured .sec-head::before { content: ""; flex: 1; max-width: 320px; height: 1px; background: linear-gradient(to left, var(--gold), transparent); opacity: .7; }
+  .featured .sec-head::after { max-width: 320px; }
+  .featured .feat-grid { margin-inline: auto; }
+  .feat-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(18px, 2.4vw, 36px); max-width: 780px; }
+  .feat-card { display: block; color: inherit; text-decoration: none; text-align: center; }
+  .feat-card .poster { display: block; padding: 6px; background: var(--frame-metal); box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .35), 0 18px 36px rgba(0, 0, 0, .55); transition: transform .5s cubic-bezier(.2, .7, .2, 1); }
+  .feat-card img { display: block; width: 100%; aspect-ratio: 3 / 4; object-fit: cover; object-position: 50% 20%; }
+  .feat-card:hover .poster { transform: translateY(-4px); }
+  .feat-card b { display: block; margin-top: 16px; font: var(--d-style) var(--d-weight) clamp(19px, 1.7vw, 23px)/1.15 var(--display); text-transform: var(--d-case); letter-spacing: var(--d-track); }
+  .feat-card small { display: block; margin-top: 6px; color: var(--stone); font-size: 14px; }
+  .feat-card .imdb { display: inline-flex; gap: 6px; margin-top: 8px; color: var(--gold); font-size: 12px; font-weight: 600; letter-spacing: .16em; text-transform: uppercase; }
+  .feat-card:hover .imdb { text-decoration: underline; text-underline-offset: 4px; }
+  .foot-links { margin-top: 18px; display: flex; gap: 18px; font-size: 14px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; }
+  .foot-links a { color: var(--gold); text-decoration: none; }
+  .foot-links a:hover { text-decoration: underline; text-underline-offset: 4px; }
+  @media (max-width: 760px) {
+    /* phones: two posters side by side, the third stays off (no sideways scroller) */
+    .feat-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+    .feat-card:nth-child(3) { display: none; }
+  }
+
+
+  /* ================= v7: locked picks + crack styles ================= */
+  /* Gold dust: ONE fixed depth layer behind the page. Hero, photos and credits are opaque and slide over it;
+     the reels band and the footer are see-through, so the dust shows only there, drifting at its own slower
+     (parallax) pace instead of scrolling with the sections. */
+  .void { position: fixed; left: 0; top: 0; width: 100%; height: 100vh; height: 100lvh; z-index: -1; pointer-events: none; display: block; }
+  .void[hidden] { display: none; }
+  .footer { position: relative; }
+
+  /* Photo wall: panelled (locked) - a moulding round each portrait + plate, a dado under the wall */
+  .hall-deco { position: absolute; inset: 0; width: 100%; height: 100%; z-index: -1; pointer-events: none; display: block; }
+  .hall-deco path, .hall-deco line { fill: none; stroke: url(#goldline); }
+  .hall::before { background: radial-gradient(ellipse 70% 60% at 50% 45%, rgba(255, 230, 190, .05), transparent 70%); }
+  .credits-sec { position: relative; }
+
+  .sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+
+</style>
+<script>
+  // Phones: pin the hero to the first screen height, in px. In-app browsers (Instagram etc.) resize the whole
+  // viewport, svh included, as their toolbar slides away on scroll, so a svh/innerHeight hero grows mid-scroll.
+  // Only a width change (rotation) re-measures. Desktop keeps plain svh. Size the hero with var(--screen, 100svh).
+  (() => { if (!matchMedia('(pointer: coarse)').matches) return;
+    const r = document.documentElement; let w = 0;
+    const pin = () => { if (innerWidth === w) return; w = innerWidth; r.style.setProperty('--screen', innerHeight + 'px'); };
+    pin(); addEventListener('resize', pin); })();
+</script>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <linearGradient id="goldline" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="1600" y2="400">
+      <stop offset="0" stop-color="#b8893e"/><stop offset=".25" stop-color="#f5dc9e"/><stop offset=".5" stop-color="#c49a52"/><stop offset=".75" stop-color="#f1d796"/><stop offset="1" stop-color="#a77a35"/>
+    </linearGradient>
+    <linearGradient id="gold-flat" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#e7c983"/><stop offset=".5" stop-color="#b48b45"/><stop offset="1" stop-color="#f4dfa6"/>
+    </linearGradient>
+    <filter id="soft" x="-5%" y="-200%" width="110%" height="500%"><feGaussianBlur stdDeviation="2.5"/></filter>
+    <filter id="vblur" x="-10%" y="-10%" width="120%" height="120%"><feGaussianBlur stdDeviation="5"/></filter>
+    <filter id="mblur" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="16"/></filter>
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="2.2" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+  </defs>
+</svg>
+
+<header class="hero" id="top">
+  <svg class="veins" aria-hidden="true"></svg>
+  <div class="hero-photo"><img src="assets/photos/tank-hips.webp" srcset="assets/photos/tank-hips-600.webp 600w, assets/photos/tank-hips.webp 1200w" sizes="(max-width: 760px) 100vw, 67vh" alt="Michael Wattel" width="1200" height="1800" fetchpriority="high"></div>
+  <h1 class="name display">
+    <span class="line"><span class="layer">Michael</span><span class="layer shine" aria-hidden="true">Michael</span></span>
+    <span class="line crack"><span class="layer top">Wattel</span><span class="layer bot" aria-hidden="true">Wattel</span><span class="layer seam-fill" aria-hidden="true">Wattel</span><span class="layer shine" aria-hidden="true">Wattel</span></span>
+  </h1>
+  <p class="under">MVM Agency &middot; Vancouver + Toronto</p>
+</header>
+
+<div class="seam" data-clip="prev" style="--a: var(--ink)" aria-hidden="true"></div>
+
+<main>
+
+  <section class="reel" id="reel" data-video="demo" aria-labelledby="reel-title">
+    <div class="wrap reel-body">
+      <div class="reel-frame">
+        <div class="reel-video">
+          <video id="player" playsinline preload="none" disablepictureinpicture poster="assets/video/demo-poster.webp" src="assets/video/demo-reel.mp4"></video>
+          <button class="reel-start" type="button" aria-label="Play"><span><svg viewBox="0 0 10 12" aria-hidden="true"><path d="M0 0 L10 6 L0 12 Z" fill="currentColor"/></svg></span></button>
+          <div class="hud">
+            <button class="hud-play" type="button" aria-label="Play or pause"><svg class="i-play" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 1.5 L14 8 L3 14.5 Z" fill="currentColor"/></svg><svg class="i-pause" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 1.5h3.5v13H3zM9.5 1.5H13v13H9.5z" fill="currentColor"/></svg></button>
+            <input class="hud-seek" type="range" min="0" max="1000" value="0" step="1" aria-label="Seek">
+            <span class="hud-time">0:00 / 3:46</span>
+            <button class="hud-mute" type="button" aria-label="Mute or unmute"><svg class="i-sound" viewBox="0 0 16 16" aria-hidden="true"><path d="M1 5.5h3L8.5 2v12L4 10.5H1z" fill="currentColor"/><path d="M11 5a4 4 0 0 1 0 6M13 3a7 7 0 0 1 0 10" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg><svg class="i-muted" viewBox="0 0 16 16" aria-hidden="true"><path d="M1 5.5h3L8.5 2v12L4 10.5H1z" fill="currentColor"/><path d="M11 5.5l4 5M15 5.5l-4 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></button>
+            <button class="hud-fs" type="button" aria-label="Full screen"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M1.5 5.5v-4h4M10.5 1.5h4v4M14.5 10.5v4h-4M5.5 14.5h-4v-4" fill="none" stroke="currentColor" stroke-width="1.6"/></svg></button>
+          </div>
+        </div>
+      </div>
+      <div class="reel-copy">
+        <div class="sec-head"><h2 class="display" id="reel-title">Reels</h2></div>
+        <div class="picker">
+          <button class="pick" type="button" data-pick="demo" aria-pressed="true">
+            <span class="badge"><span class="sel">Selected</span><span class="now">Now playing</span></span>
+            <span class="ico"><svg viewBox="0 0 10 12" aria-hidden="true"><path d="M0 0 L10 6 L0 12 Z" fill="currentColor"/></svg></span>
+            <span><b>Demo reel</b><small>Film &amp; television scenes</small></span>
+            <time>3:46</time>
+          </button>
+          <button class="pick" type="button" data-pick="vertical" aria-pressed="false">
+            <span class="badge"><span class="sel">Selected</span><span class="now">Now playing</span></span>
+            <span class="ico"><svg viewBox="0 0 10 12" aria-hidden="true"><path d="M0 0 L10 6 L0 12 Z" fill="currentColor"/></svg></span>
+            <span><b>Vertical reel</b><small>Vertical drama scenes</small></span>
+            <time>2:00</time>
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="wrap featured" id="featured" aria-labelledby="featured-title">
+      <div class="sec-head"><h2 class="display" id="featured-title">Featured</h2></div>
+      <div class="feat-grid">
+        <a class="feat-card" href="https://www.imdb.com/title/tt39465598/" target="_blank" rel="noopener"><span class="poster"><img src="assets/featured/vampire-prince.jpg" alt="The Vampire Prince&rsquo;s Bride poster" loading="lazy"></span><b>The Vampire Prince&rsquo;s Bride</b><small>Alaric Martin &middot; Supporting lead &middot; 2026</small><span class="imdb">IMDb &#8599;</span></a>
+        <a class="feat-card" href="https://www.imdb.com/title/tt39423238/" target="_blank" rel="noopener"><span class="poster"><img src="assets/featured/rot-in-hell.webp" alt="Rot in Hell, Dear Ex-Husband poster" loading="lazy"></span><b>Rot in Hell, Dear Ex-Husband</b><small>Craig &middot; Lead &middot; 2026</small><span class="imdb">IMDb &#8599;</span></a>
+        <a class="feat-card" href="https://www.imdb.com/title/tt38474755/" target="_blank" rel="noopener"><span class="poster"><img src="assets/featured/mafia-boss.jpg" alt="Mafia Boss Owns My Body poster" loading="lazy"></span><b>Mafia Boss Owns My Body</b><small>Eric &middot; Lead &middot; 2025</small><span class="imdb">IMDb &#8599;</span></a>
+      </div>
+    </div>
+  </section>
+
+  <div class="seam" data-clip="next" style="--b: var(--wall)" aria-hidden="true"></div>
+
+  <section class="hall" id="photos" aria-labelledby="photos-title">
+    <svg class="hall-deco" aria-hidden="true"></svg>
+    <div class="wrap">
+      <div class="sec-head"><h2 class="display" id="photos-title">Photos</h2></div>
+      <div class="wall">
+        <figure class="hang" style="margin:0"><button class="frame"><span class="crop gb"><img src="assets/photos/bomber-smile.webp" srcset="assets/photos/bomber-smile-600.webp 600w, assets/photos/bomber-smile.webp 1200w" sizes="(max-width: 760px) 92vw, (min-width: 1400px) 620px, 44vw" decoding="async" alt="Smiling, in a tan bomber jacket" loading="lazy" width="1200" height="1800"></span></button><span class="plate">The Golden Boy</span></figure>
+        <figure class="hang" style="margin:0"><button class="frame"><img src="assets/photos/navy-blazer.webp" srcset="assets/photos/navy-blazer-600.webp 600w, assets/photos/navy-blazer.webp 1200w" sizes="(max-width: 760px) 46vw, (min-width: 1400px) 290px, 21vw" decoding="async" alt="Navy blazer over a black tee" loading="lazy" width="1200" height="1800"></button><span class="plate">The Heir</span></figure>
+        <figure class="hang" style="margin:0"><button class="frame"><img src="assets/photos/tank-clasp.webp" srcset="assets/photos/tank-clasp-600.webp 600w, assets/photos/tank-clasp.webp 1200w" sizes="(max-width: 760px) 46vw, (min-width: 1400px) 290px, 21vw" decoding="async" alt="Black tank top, hands clasped" loading="lazy" width="1200" height="1800"></button><span class="plate">The Contender</span></figure>
+        <figure class="hang" style="margin:0"><button class="frame"><img src="assets/photos/navy-shirt.webp" srcset="assets/photos/navy-shirt-600.webp 600w, assets/photos/navy-shirt.webp 1200w" sizes="(max-width: 760px) 46vw, (min-width: 1400px) 290px, 21vw" decoding="async" alt="Headshot in a navy shirt" loading="lazy" width="1200" height="1800"></button><span class="plate">The Son</span></figure>
+        <figure class="hang" style="margin:0"><button class="frame"><img src="assets/photos/tank-hips.webp" srcset="assets/photos/tank-hips-600.webp 600w, assets/photos/tank-hips.webp 1200w" sizes="(max-width: 760px) 46vw, (min-width: 1400px) 290px, 21vw" decoding="async" alt="Black tank top, hands on hips" loading="lazy" width="1200" height="1800"></button><span class="plate">The Rival</span></figure>
+      </div>
+    </div>
+  </section>
+
+  <div class="seam cream-edge to-cream" aria-hidden="true"></div>
+
+  <section class="credits-sec" id="credits" aria-labelledby="credits-title">
+    <div class="wrap">
+      <div class="sec-head"><h2 class="display" id="credits-title">Credits</h2></div>
+      <div class="credits">
+        <div class="credit-keep"><h3>Vertical drama</h3><div class="credit"><b>Miss Fortune</b><i>Ivan &middot; Supporting lead &middot; Dir. Gabriel Caste</i></div></div>
+        <div class="credit"><b>The Vampire Prince&rsquo;s Bride</b><i>Alaric Martin &middot; Supporting lead &middot; Dir. Aries Ceta, Amy Yao</i></div>
+        <div class="credit"><b>Rot in Hell, Ex-Husband</b><i>Craig &middot; Lead &middot; Dir. Eric Zhang</i></div>
+        <div class="credit"><b>Mafia Boss Owns My Body</b><i>Eric &middot; Lead &middot; Dir. Alan Pat</i></div>
+        <div class="credit"><b>Be My Heart, Be His Eyes</b><i>Ethan / Tim &middot; Lead &middot; Dir. Sijing Yang</i></div>
+        <div class="credit"><b>Untouchable Alpha&rsquo;s Heartbeat</b><i>Marcus &middot; Principal lead &middot; Dir. Angela Wong</i></div>
+        <div class="credit"><b>My Three Knights</b><i>Edward &middot; Supporting lead &middot; Dir. Shu Zhu</i></div>
+        <div class="credit"><b>The Love Visa</b><i>Ryder &middot; Supporting lead &middot; Dir. Dom Cutrupi</i></div>
+        <div class="credit"><b>Desires Die Hard</b><i>Jake &middot; Supporting lead &middot; Dir. Amy Yao</i></div>
+        <div class="credit"><b>The Divorced Navy Queen Awakens</b><i>Victor &middot; Supporting lead &middot; Dir. Eric Zhang</i></div>
+        <div class="credit"><b>Dumped by a Cheater, Spoiled by a Millionaire</b><i>Mark &middot; Supporting lead &middot; Dir. Shu Zhu</i></div>
+        <div class="credit"><b>By the Time She Knew</b><i>Miles Keaton &middot; Supporting lead &middot; Dir. Kunlin</i></div>
+        <div class="credit"><b>Mom&rsquo;s Rich, Dad&rsquo;s a Bust</b><i>Alistair Sinclair &middot; Supporting lead &middot; Dir. Eric Zhang</i></div>
+        <div class="credit"><b>The Royal Bride&rsquo;s Biggest Mistake</b><i>Conner &middot; Supporting lead &middot; Dir. Alan Pat</i></div>
+        <div class="credit"><b>The Sound of Tears</b><i>Chad &middot; Supporting lead &middot; Dir. Simeon Hu</i></div>
+        <div class="credit"><b>The 50-Year-Old Housekeeper</b><i>Andrew &middot; Principal &middot; Dir. Dom Cutrupi</i></div>
+        <div class="credit"><b>Crashing Into My Magnate Ex</b><i>Colin &middot; Principal &middot; Dir. Dom Cutrupi</i></div>
+        <div class="credit"><b>100 Goodbyes</b><i>Marcus &middot; Principal &middot; Dir. Leo Max</i></div>
+        <div class="credit"><b>Twilight Love</b><i>Raymond &middot; Supporting &middot; Dir. Shu Zhu</i></div>
+        <div class="credit"><b>Love Lies Ultimatums</b><i>Jordon &middot; Supporting &middot; Dir. Brianna Nord-Stewart</i></div>
+        <div class="credit"><b>Tame Me, My Lord</b><i>Jake &middot; Supporting &middot; Dir. Noah Penner</i></div>
+        <div class="credit"><b>In Love with My Evil Stepbrother</b><i>Ryan &middot; Supporting &middot; Dir. Leo Max</i></div>
+        <div class="credit-keep"><h3>Film &amp; television</h3><div class="credit"><b>Carcass</b><i>Alex &middot; Principal &middot; Dir. Taylor Stezinar</i></div></div>
+        <div class="credit"><b>Live and on Air</b><i>Michael &middot; Principal &middot; Dir. Brandon Taylor</i></div>
+        <div class="credit"><b>Luxurious Life</b><i>Rex &middot; Principal &middot; Dir. James Summer</i></div>
+        <div class="credit"><b>Viewer Syndrome</b><i>Ezra / Clone &middot; Principal &middot; Dir. Shanithini B</i></div>
+        <div class="credit-keep"><h3>Commercial</h3><div class="credit"><b>Gillette</b><i>The Deal Maker &middot; Dir. Joseph Kahn</i></div></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="seam cream-edge from-cream" data-clip="prev" aria-hidden="true"></div>
+
+</main>
+
+<canvas class="void" aria-hidden="true"></canvas>
+
+<footer class="footer" id="contact">
+  <div class="wrap">
+    <h2 class="display">Casting&nbsp;&amp; bookings</h2>
+    <div class="foot-grid">
+      <div>
+        <h3>Representation</h3>
+        <p class="agency">MVM Agency <span>&middot; Vancouver + Toronto</span></p>
+        <div class="agents">
+          <div class="agent"><b>Brenda</b><br><a class="email" href="mailto:brenda@mvmagency.ca">brenda@mvmagency.ca</a><br><a class="tel" href="tel:+16043188104">+1 (604) 318-8104</a></div>
+        </div>
+        <p class="office">Office <a class="tel" href="tel:+16046870388">+1 (604) 687-0388</a> &middot; <a href="mailto:info.mvmagency@gmail.com">info.mvmagency@gmail.com</a> &middot; <a href="https://mvmagency.ca" rel="noopener">mvmagency.ca</a></p>
+      </div>
+      <div>
+        <h3>Résumés</h3>
+        <div class="btns">
+          <a class="btn" href="assets/MichaelWattel_Resume_FilmTV.pdf" download>Film &amp; TV résumé</a>
+          <a class="btn ghost" href="assets/MichaelWattel_Resume_Verticals.pdf" download>Vertical drama résumé</a>
+        </div>
+        <p class="foot-links"><a href="https://www.imdb.com/name/nm11984110/" target="_blank" rel="noopener">IMDb</a><a href="https://www.instagram.com/michaelwattel/" target="_blank" rel="noopener">Instagram</a></p>
+      </div>
+      <div class="crest" aria-hidden="true">
+        <svg viewBox="0 0 200 200">
+          <circle cx="100" cy="100" r="92" fill="none" stroke="url(#gold-flat)" stroke-width="3"/>
+          <circle cx="100" cy="100" r="84" fill="none" stroke="url(#gold-flat)" stroke-width="1"/>
+          <text x="100" y="124" text-anchor="middle" font-size="74">MW</text>
+        </svg>
+        <span class="motto">AURUM EX VULNERE</span>
+      </div>
+    </div>
+    <p class="colophon">© 2026 Michael Wattel<span class="built-by">Built by Harrison Keen, <a href="https://harrisonkeen.tech" rel="noopener">harrisonkeen.tech</a></span></p>
+  </div>
+</footer>
+
+<dialog class="lightbox" aria-label="Photo viewer">
+  <img alt="">
+  <button class="lightbox-step prev" aria-label="Previous photo">‹</button>
+  <button class="lightbox-step next" aria-label="Next photo">›</button>
+  <button class="lightbox-close" aria-label="Close">×</button>
+</dialog>
+
+
+<script>
+  const root = document.documentElement;
+  const calm = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const NS = 'http://www.w3.org/2000/svg';
+  const svgEl = (tag, attrs) => { const e = document.createElementNS(NS, tag); for (const k in attrs) e.setAttribute(k, attrs[k]); return e; };
+  const el = (tag, className, ...kids) => { const e = document.createElement(tag); if (className) e.className = className; e.append(...kids); return e; };
+  // seeded random, so the cracks are the same on every visit
+  const rng = seed => () => { seed |= 0; seed = seed + 0x6D2B79F5 | 0; let t = Math.imul(seed ^ seed >>> 15, 1 | seed); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; };
+
+
+  const hero = document.querySelector('.hero'), photoBox = hero.querySelector('.hero-photo'), heroImg = photoBox.querySelector('img');
+  // ---------- Hero name: fitted to the room left of the portrait, with a jagged break through "Wattel" ----------
+  const name = hero.querySelector('.name'), under = hero.querySelector('.under');
+  const crackLine = name.querySelector('.crack');
+  let screenH = innerHeight;
+  function layoutName() {
+    const vw = root.clientWidth, phone = vw <= 760;
+    const gutter = Math.max(16, Math.min(vw * .05, 72));
+    name.style.fontSize = '100px';
+    const widest = Math.max(...[...name.querySelectorAll('.line')].map(l => l.getBoundingClientRect().width));
+    const photo = photoBox.getBoundingClientRect();
+    const room = phone ? (vw - 2 * gutter) * .94 : (photo.left + photo.width * .2) - gutter;
+    const byHeight = hero.offsetHeight * (phone ? .13 : .2);
+    name.style.fontSize = Math.min(100 * room / widest, byHeight) + 'px';
+    under.style.top = (name.offsetTop + name.offsetHeight + 14) + 'px';
+    under.style.paddingLeft = phone ? '' : (parseFloat(name.style.fontSize) * .04 + 2) + 'px';
+    if (phone) { name.style.bottom = ''; }
+    breakName();
+    drawVeins();
+  }
+  function breakName() {
+    const r = rng(41), box = crackLine.getBoundingClientRect(), W = box.width, H = box.height;
+    // a jagged line from left to right, about half-way down the caps
+    const pts = [];
+    for (let x = -2; x < 102; x += 5 + r() * 9) pts.push([x, 52 + (r() - .5) * 12]);
+    pts.push([102, 52 + (r() - .5) * 10]);
+    const p = pts.map(([x, y]) => `${x}% ${y}%`).join(', ');
+    crackLine.style.setProperty('--clip-top', `polygon(-5% -20%, 105% -20%, 102% ${pts.at(-1)[1]}%, ${[...pts].reverse().map(([x, y]) => `${x}% ${y}%`).join(', ')})`);
+    crackLine.style.setProperty('--clip-bot', `polygon(${p}, 105% 120%, -5% 120%)`);
+    const fs = parseFloat(name.style.fontSize);
+    crackLine.style.setProperty('--shift', `${Math.max(1, fs * .011).toFixed(2)}px ${Math.max(1.4, fs * .016).toFixed(2)}px`);
+    // the seam: the same line, stroked in bright gold, clipped to the letters by background-clip
+    const sw = Math.max(1.6, fs * .014), cs = getComputedStyle(root), hi = cs.getPropertyValue('--seam-hi').trim().replace('#', '%23'), glow = cs.getPropertyValue('--seam-glow').trim().replace('#', '%23');
+    const line = pts.map(([x, y]) => `${(x / 100 * W).toFixed(1)},${(y / 100 * H).toFixed(1)}`).join(' ');
+    const svg = `<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 ${W.toFixed(1)} ${H.toFixed(1)}' preserveAspectRatio='none'><polyline points='${line}' fill='none' stroke='${hi}' stroke-width='${sw.toFixed(1)}' stroke-linejoin='round'/><polyline points='${line}' fill='none' stroke='${glow}' stroke-width='${(sw * 2.2).toFixed(1)}' stroke-opacity='.45' stroke-linejoin='round'/></svg>`;
+    crackLine.style.setProperty('--seam-img', `url("data:image/svg+xml,${svg.replace(/</g, '%3C').replace(/>/g, '%3E').replace(/"/g, "'")}")`);
+  }
+
+  // ---------- Kintsugi veins across the backdrop (hand-gilded), all kept off the name ----------
+  // Every style returns plain data: veins { pts, w, delay, dur, taper, profile, main, bleed, op } and gold-filled chips.
+  const veins = hero.querySelector('.veins');
+  const fx = n => n.toFixed(1);
+  function crack(r, x, y, ang, len, w, depth, out, delay) {
+    const pts = [[x, y]], kids = [];
+    let walked = 0;
+    while (walked < len) {
+      const step = 14 + r() * 26;
+      ang += (r() - .5) * .9;
+      x += Math.cos(ang) * step; y += Math.sin(ang) * step; walked += step;
+      pts.push([x, y]);
+      if (depth < 1 && r() < .12) kids.push([x, y, ang + (r() < .5 ? -1 : 1) * (.5 + r() * .7), len * (.25 + r() * .3), walked / len]);
+    }
+    const dur = 1.1 + len / 900;
+    out.push({ pts, w, delay, dur, depth });
+    kids.forEach(([kx, ky, ka, kl, at]) => crack(r, kx, ky, ka, kl, w * .55, depth + 1, out, delay + dur * at * .8));
+  }
+  // A + B + D + E share this skeleton: the same three breaks from the frame's edges
+  // Phones: the portrait fills the width, so the veins sit over it (z-index 2) and two short breaks run through the
+  // dark backdrop either side of his head: one down from the top edge, one in from the right. A soft mask keeps
+  // them off his head and body (see drawVeins).
+  const PHONE_CRACKS = { seed: 3, w: 1.5, starts: [[.2, 0, 1.95, .5], [1, .26, Math.PI + .6, .42]] };
+  function skeleton(W, H, phone) {
+    const r = rng(phone ? PHONE_CRACKS.seed : 7), out = [];
+    const starts = phone ? PHONE_CRACKS.starts.map(([x, y, a, l]) => [x * W + (x === 1 ? 10 : 0), y * H - (y === 0 ? 10 : 0), a, l]) :
+      [[-10, H * .22, .15], [W * .46, -10, 1.75], [W + 10, H * .78, Math.PI + .2]];
+    starts.forEach(([x, y, a, l], i) => crack(r, x, y, a, (phone ? l : .3) * W + r() * W * (phone ? .06 : .12), phone ? PHONE_CRACKS.w : 1.4, 0, out, .15 * i));
+    return out;
+  }
+  // B: the same cracks, laid by hand: thicker, swelling and tapering to a hair, plus fine hairlines off them
+  function handGilded(W, H, phone) {
+    const out = skeleton(W, H, phone), r = rng(77), hair = [];
+    out.forEach(v => {
+      v.w *= phone ? 1.8 : 2.3; v.taper = true; v.profile = 'tip'; v.main = v.depth === 0;
+      v.pts.forEach(([x, y], k) => { if (k > 1 && k < v.pts.length - 2 && r() < (v.depth ? .08 : .14)) {
+        const [px, py] = v.pts[k - 1], a = Math.atan2(y - py, x - px) + (r() < .5 ? -1 : 1) * (.35 + r() * .45), from = hair.length;
+        crack(r, x, y, a, 16 + r() * 34, phone ? .5 : .62, 2, hair, v.delay + v.dur * k / v.pts.length);
+        hair.slice(from).forEach(h => { h.taper = true; h.profile = 'tip'; h.dur *= .45; });
+      } });
+    });
+    return { list: out.concat(hair), chips: [] };
+  }
+  function vpath(attrs, delay, dur, ease) {
+    const p = svgEl('path', { pathLength: 1, ...attrs });
+    p.style.setProperty('--delay', delay.toFixed(2) + 's'); p.style.setProperty('--dur', dur.toFixed(2) + 's');
+    if (ease) p.style.setProperty('--ease', ease);
+    return p;
+  }
+  const PROFILE = { tip: t => (1 - t) ** .7, both: t => Math.sin(Math.PI * t) ** .6 };
+  function drawVeins() {
+    const W = hero.clientWidth, H = hero.clientHeight, phone = W <= 760;
+    veins.setAttribute('viewBox', `0 0 ${W} ${H}`);
+    const { list, chips } = handGilded(W, H, phone);
+    // keep every vein off the name: a hole in the mask around it (soft-edged for the new styles, so lines fade out)
+    const n = name.getBoundingClientRect(), h = hero.getBoundingClientRect(), u = under.getBoundingClientRect(), pad = 26;
+    const mask = svgEl('mask', { id: 'vmask', maskUnits: 'userSpaceOnUse', x: 0, y: 0, width: W, height: H });
+    const holes = svgEl('g', { filter: 'url(#mblur)' });
+    holes.append(svgEl('rect', { x: n.left - h.left - pad, y: n.top - h.top - pad, width: n.width + 2 * pad, height: n.height + 2 * pad, rx: 30, fill: '#000' }),
+      svgEl('rect', { x: u.left - h.left - pad, y: u.top - h.top - 10, width: u.width + 2 * pad, height: u.height + 20, fill: '#000' }));
+    if (phone) {
+      // where the portrait actually lands (object-fit: cover, object-position 50% 10%), so the holes track his figure
+      const b = photoBox.getBoundingClientRect(), k = Math.max(b.width / 1200, b.height / 1800), iw = 1200 * k, ih = 1800 * k;
+      const ix = b.left - h.left + (b.width - iw) / 2, iy = b.top - h.top + (b.height - ih) * .1;
+      holes.append(svgEl('ellipse', { cx: ix + iw * .45, cy: iy + ih * .17, rx: iw * .18, ry: ih * .15, fill: '#000' }),
+        svgEl('rect', { x: ix + iw * .04, y: iy + ih * .3, width: iw * .93, height: ih * .7, rx: iw * .12, fill: '#000' }));
+    }
+    mask.append(svgEl('rect', { width: W, height: H, fill: '#fff' }), holes);
+    const bleed = svgEl('g', { mask: 'url(#vmask)', filter: 'url(#vblur)', opacity: .26 });
+    const g = svgEl('g', { mask: 'url(#vmask)', filter: 'url(#glow)', opacity: .66 });
+    let gi = 0;
+    list.forEach(v => {
+      const d = 'M' + v.pts.map(([x, y]) => `${fx(x)} ${fx(y)}`).join(' L');
+      if (v.bleed) bleed.append(vpath({ class: 'bleed', d, 'stroke-width': fx(v.w * 5) }, v.delay, v.dur, 'linear'));
+      if (!v.taper) {
+        g.append(vpath({ d, 'stroke-width': v.w.toFixed(2), ...(v.op ? { 'stroke-opacity': v.op.toFixed(2) } : {}) }, v.delay, v.dur));
+      } else {
+        // a run of short strokes, each as wide as the seam is at that point, drawn one after another
+        const L = [0];
+        for (let i = 1; i < v.pts.length; i++) L.push(L[i - 1] + Math.hypot(v.pts[i][0] - v.pts[i - 1][0], v.pts[i][1] - v.pts[i - 1][1]));
+        const T = L.at(-1) || 1, prof = PROFILE[v.profile || 'tip'], ph = v.pts[0][0] * .13;
+        for (let i = 0; i < v.pts.length - 1; i++) {
+          const t0 = L[i] / T, t1 = L[i + 1] / T, tm = (t0 + t1) / 2, w = v.w * Math.max(.1, prof(tm)) * (.84 + .16 * Math.sin(tm * 19 + ph));
+          const sd = `M${fx(v.pts[i][0])} ${fx(v.pts[i][1])} L${fx(v.pts[i + 1][0])} ${fx(v.pts[i + 1][1])}`, de = v.delay + v.dur * t0, du = v.dur * (t1 - t0);
+          g.append(vpath({ d: sd, 'stroke-width': w.toFixed(2) }, de, du, 'linear'));
+          if (w > 1.5) g.append(vpath({ class: 'core', d: sd, 'stroke-width': (w * .3).toFixed(2) }, de, du, 'linear'));
+        }
+      }
+      if (v.main) {
+        const p = vpath({ class: 'glint', d, 'stroke-width': phone ? 1 : 1.3 }, 0, 0);
+        p.style.setProperty('--gdur', (9 + (gi * 3.7) % 5).toFixed(1) + 's'); p.style.setProperty('--gdel', (v.delay + v.dur + 1.2 + gi * 2.3).toFixed(1) + 's');
+        g.append(p); gi++;
+      }
+    });
+    chips.forEach(c => {
+      const d = 'M' + c.pts.map(([x, y]) => `${fx(x)} ${fx(y)}`).join(' L') + ' Z';
+      const [ox, oy] = c.pts.reduce(([a, b], [x, y]) => [a + x / c.pts.length, b + y / c.pts.length], [0, 0]);
+      const hi = 'M' + c.pts.map(([x, y]) => `${fx(ox + (x - ox) * .45 - .8)} ${fx(oy + (y - oy) * .45 - 1)}`).join(' L') + ' Z';
+      g.append(vpath({ class: 'chip', d }, c.delay, 0), vpath({ class: 'chip-hi', d: hi }, c.delay + .1, 0));
+    });
+    veins.replaceChildren(mask, bleed, g);
+  }
+
+  // ---------- The load moment: photo and name rise, the name gilds, then the break ----------
+  let timers = [];
+  function playHero() {
+    timers.forEach(clearTimeout); timers = [];
+    hero.classList.remove('go', 'gild', 'broken');
+    void hero.offsetWidth;
+    if (calm) { hero.classList.add('go', 'broken'); return; }
+    requestAnimationFrame(() => hero.classList.add('go'));
+    timers.push(setTimeout(() => hero.classList.add('gild'), 1000));
+    timers.push(setTimeout(() => hero.classList.add('broken'), 2200));
+  }
+
+
+  // ---------- Seams: each section edge is a jagged break, filled with gold ----------
+  // The strip paints only the solid side of the break; data-clip names the neighbour that gets cut instead. That
+  // neighbour is clipped along the very same points, so wherever the line wanders above or below the boxes'
+  // meeting point, the colour change follows the gold exactly.
+  const seams = [...document.querySelectorAll('.seam')];
+  const ptStr = pts => pts.map(([x, y]) => `${x.toFixed(1)} ${y.toFixed(1)}`).join(' L');
+  function clipAlong(s, pts) {
+    const mid = s.clientHeight / 2, side = s.dataset.clip;
+    if (!side) return;
+    const t = side === 'prev' ? s.previousElementSibling : s.nextElementSibling;
+    const at = ([x, y]) => side === 'prev' ? `${x.toFixed(1)}px calc(100% + ${(y - mid).toFixed(1)}px)` : `${x.toFixed(1)}px ${(y - mid).toFixed(1)}px`;
+    // run the edge a little past both sides of the page so nothing peeks round the ends
+    const edge = [[-4, pts[0][1]], ...pts, [pts.at(-1)[0] + 4, pts.at(-1)[1]]];
+    t.style.clipPath = side === 'prev' ? `polygon(-4px -50px, calc(100% + 4px) -50px, ${[...edge].reverse().map(at).join(', ')})`
+                                       : `polygon(${edge.map(at).join(', ')}, calc(100% + 4px) calc(100% + 50px), -4px calc(100% + 50px))`;
+  }
+  function drawSeams() {
+    seams.forEach((s, i) => {
+      if (s.matches('.cream-edge')) { const { svg, pts } = deckle(s, rng(200 + i)); s.replaceChildren(svg); return clipAlong(s, pts); }
+      const W = s.clientWidth, H = s.clientHeight, r = rng(100 + i), mid = H / 2;
+      const pts = [[0, mid]];
+      for (let x = 0; x < W;) { x = Math.min(W, x + 16 + r() * 54); pts.push([x, mid + (r() - .5) * 18]); }
+      const line = ptStr(pts), rev = ptStr([...pts].reverse());
+      const svg = svgEl('svg', { viewBox: `0 0 ${W} ${H}`, preserveAspectRatio: 'none' });
+      // above the line belongs to the section before, below it to the one after; paint only the solid one
+      if (s.dataset.clip !== 'next') svg.append(svgEl('path', { class: 'fill-a', d: `M0 -1 L${W} -1 L${rev} Z` }));
+      if (s.dataset.clip !== 'prev') svg.append(svgEl('path', { class: 'fill-b', d: `M${line} L${W} ${H + 1} L0 ${H + 1} Z` }));
+      const g = svgEl('g', { filter: 'url(#glow)' });
+      g.append(svgEl('path', { class: 'line', d: 'M' + line, 'stroke-width': 1.8, pathLength: 1 }));
+      // a few hairline branches off the main seam
+      pts.forEach(([x, y], k) => { if (k && r() < .14) { const a = (r() < .5 ? -1 : 1) * (.5 + r() * .8), l = 10 + r() * 26;
+        const p = svgEl('path', { class: 'line', d: `M${x.toFixed(1)} ${y.toFixed(1)} L${(x + Math.cos(a) * l * .5).toFixed(1)} ${(y + Math.sin(a) * l * .4).toFixed(1)} L${(x + Math.cos(a) * l).toFixed(1)} ${(y + Math.sin(a) * l * .6).toFixed(1)}`, 'stroke-width': .9, pathLength: 1 });
+        p.style.setProperty('--delay', (1.2 * x / W + .3).toFixed(2) + 's'); g.append(p); } });
+      svg.append(g);
+      s.replaceChildren(svg);
+      clipAlong(s, pts);
+    });
+  }
+  // deckled paper edge: small, irregular, fibrous; the cream is the paper, the dark lies behind it
+  function deckle(s, r) {
+    const W = s.clientWidth, H = s.clientHeight, mid = H / 2, down = s.matches('.to-cream');
+    const pts = [];
+    for (let x = 0, a = r() * 6, b = r() * 6; x <= W + 4; x += 2 + r() * 4)
+      pts.push([x, mid + Math.sin(x / 37 + a) * 2.6 + Math.sin(x / 11 + b) * 1.4 + (r() - .5) * 3.2]);
+    const line = ptStr(pts);
+    const svg = svgEl('svg', { viewBox: `0 0 ${W} ${H}`, preserveAspectRatio: 'none' });
+    // paper = cream side; it sits on top so its edge shadows the dark. With data-clip the dark side is left
+    // see-through (the footer shows the gold dust right up to the paper's edge)
+    const shade = svgEl('path', { class: 'shade', d: 'M' + line, transform: `translate(0 ${down ? -2.5 : 2.5})` });
+    if (!s.dataset.clip) svg.append(svgEl('path', { class: down ? 'fill-a' : 'fill-b', d: `M0 0 L${W} 0 L${W} ${H} L0 ${H} Z` }));
+    svg.append(shade,
+      svgEl('path', { class: (down ? 'fill-b' : 'fill-a') + ' paper', d: down ? `M${line} L${W} ${H + 4} L0 ${H + 4} Z` : `M${line} L${W} -4 L0 -4 Z` }),
+      svgEl('path', { class: 'fibre', d: 'M' + line }));
+    return { svg, pts };
+  }
+  const seamIO = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('on'); seamIO.unobserve(e.target); } }), { threshold: 1 });
+  seams.forEach(s => seamIO.observe(s));
+
+  // ---------- Reels: one gilt frame that reshapes to each video ----------
+  const VIDEOS = {
+    demo: { src: 'assets/video/demo-reel.mp4', poster: 'assets/video/demo-poster.webp', dur: 226, label: 'Play the demo reel' },
+    vertical: { src: 'assets/video/vertical-reel.mp4', poster: 'assets/video/vertical-poster.webp', dur: 120, label: 'Play the vertical reel' },
+  };
+  const player = document.getElementById('player'), reel = document.getElementById('reel'), box = reel.querySelector('.reel-video');
+  const seek = reel.querySelector('.hud-seek'), clock = reel.querySelector('.hud-time'), startBtn = reel.querySelector('.reel-start');
+  const mmss = t => `${Math.floor(t / 60)}:${String(Math.floor(t % 60)).padStart(2, '0')}`;
+  const cur = () => VIDEOS[reel.dataset.video];
+  const start = () => { reel.classList.add('played'); player.play().catch(() => {}); };
+  const togglePlay = () => player.paused ? start() : player.pause();
+  function choose(key, play) {
+    if (reel.dataset.video !== key) {
+      player.pause();
+      reel.dataset.video = key;
+      const v = cur();
+      player.poster = v.poster; player.src = v.src;
+      reel.classList.remove('played', 'playing');
+      clock.textContent = `0:00 / ${mmss(v.dur)}`; seek.value = 0;
+      startBtn.setAttribute('aria-label', v.label);
+      reel.querySelectorAll('.pick').forEach(p => p.setAttribute('aria-pressed', p.dataset.pick === key));
+    }
+    if (play) { if (!player.paused) return player.pause(); start(); }
+  }
+  reel.querySelectorAll('.pick').forEach(p => p.addEventListener('click', () => choose(p.dataset.pick, true)));
+  player.addEventListener('timeupdate', () => { const d = player.duration || cur().dur; seek.value = 1000 * player.currentTime / d; clock.textContent = `${mmss(player.currentTime)} / ${mmss(d)}`; });
+  seek.addEventListener('input', () => { player.currentTime = seek.value / 1000 * (player.duration || cur().dur); });
+  reel.querySelector('.hud-play').addEventListener('click', togglePlay);
+  player.addEventListener('click', togglePlay);
+  startBtn.addEventListener('click', start);
+  reel.querySelector('.hud-mute').addEventListener('click', () => { player.muted = !player.muted; box.classList.toggle('muted', player.muted); });
+  reel.querySelector('.hud-fs').addEventListener('click', () => document.fullscreenElement ? document.exitFullscreen() : box.requestFullscreen());
+  let idle;
+  const wake = () => { reel.classList.remove('idle'); clearTimeout(idle); idle = setTimeout(() => reel.classList.add('idle'), 2500); };
+  ['mousemove', 'touchstart', 'keydown'].forEach(e => box.addEventListener(e, wake, { passive: true }));
+  player.addEventListener('play', wake);
+  player.addEventListener('playing', () => reel.classList.add('playing'));
+  ['pause', 'ended', 'emptied'].forEach(e => player.addEventListener(e, () => reel.classList.remove('playing')));
+  new IntersectionObserver(([e]) => { if (!e.isIntersecting && !player.paused) player.pause(); }).observe(player);
+
+  // ---------- Portrait hall lightbox ----------
+  const shots = [...document.querySelectorAll('.wall button.frame img')];
+  const lb = document.querySelector('.lightbox'), big = lb.querySelector('img');
+  let at = 0;
+  const show = i => { at = (i + shots.length) % shots.length; big.src = shots[at].src; big.alt = shots[at].alt; };
+  shots.forEach((img, i) => img.parentElement.addEventListener('click', () => { show(i); lb.showModal(); }));
+  lb.querySelector('.prev').addEventListener('click', () => show(at - 1));
+  lb.querySelector('.next').addEventListener('click', () => show(at + 1));
+  lb.querySelector('.lightbox-close').addEventListener('click', () => lb.close());
+  lb.addEventListener('click', e => { if (e.target === lb) lb.close(); });
+  lb.addEventListener('keydown', e => { if (e.key === 'ArrowLeft') show(at - 1); if (e.key === 'ArrowRight') show(at + 1); });
+
+  // ---------- Credits: balanced columns that all end on the same line ----------
+  const credits = document.querySelector('.credits');
+  const rows = [...credits.children];
+  rows.filter(r => r.matches('.credit-keep')).forEach((k, i, all) => {
+    const next = all[i + 1], from = rows.indexOf(k), to = next ? rows.indexOf(next) : rows.length;
+    k.querySelector('h3').append(el('small', '', String(to - from)));
+  });
+  const colCount = () => { const w = credits.parentElement.clientWidth; return w > 980 ? 3 : w > 620 ? 2 : 1; };
+  function layoutCredits() {
+    const n = colCount();
+    credits.style.setProperty('--cols', n);
+    const cols = Array.from({ length: n }, () => el('div', 'credit-col'));
+    cols[0].append(...rows);
+    credits.replaceChildren(...cols);
+    if (n === 1) return;
+    const h = rows.map(r => r.offsetHeight);
+    const sum = (a, b) => h.slice(a, b).reduce((x, y) => x + y, 0);
+    const penalty = i => rows[i].classList.contains('credit-keep') ? 0 : 40;
+    let best = null;
+    const cuts = n === 2 ? rows.map((_, i) => [i]).slice(1) : rows.flatMap((_, i) => rows.map((_, j) => [i, j])).filter(([i, j]) => i > 0 && j > i);
+    for (const c of cuts) {
+      const edges = [0, ...c, rows.length];
+      const tallest = Math.max(...edges.slice(1).map((e, k) => sum(edges[k], e)));
+      const score = tallest + c.reduce((t, i) => t + penalty(i), 0);
+      if (!best || score < best.score) best = { score, c };
+    }
+    const edges = [0, ...best.c, rows.length];
+    cols.forEach((col, k) => col.replaceChildren(...rows.slice(edges[k], edges[k + 1])));
+  }
+
+  // ---------- Photo wall, panelled: a moulding round each portrait + plate, a dado under the wall ----------
+  // a raised moulding with notched corners
+  function moulding(x, y, w, h, n) {
+    return `M${x + n} ${y}H${x + w - n}A${n} ${n} 0 0 0 ${x + w} ${y + n}V${y + h - n}A${n} ${n} 0 0 0 ${x + w - n} ${y + h}H${x + n}A${n} ${n} 0 0 0 ${x} ${y + h - n}V${y + n}A${n} ${n} 0 0 0 ${x + n} ${y}Z`;
+  }
+  const hall = document.querySelector('.hall'), hallDeco = hall.querySelector('.hall-deco');
+  function drawHall() {
+    const W = hall.clientWidth, H = hall.clientHeight, h = hall.getBoundingClientRect(), phone = W <= 760;
+    hallDeco.setAttribute('viewBox', `0 0 ${W} ${H}`);
+    const g = svgEl('g', { opacity: .3 }), mx = phone ? 9 : 20;
+    let low = 0;
+    hall.querySelectorAll('.hang').forEach(f => {
+      const fr = f.querySelector('.frame').getBoundingClientRect(), pl = f.querySelector('.plate').getBoundingClientRect();
+      const x = fr.left - h.left - mx, y = fr.top - h.top - (phone ? 26 : 44), w = fr.width + 2 * mx, ht = pl.bottom - h.top + (phone ? 12 : 22) - y;
+      g.append(svgEl('path', { d: moulding(x, y, w, ht, phone ? 8 : 14), 'stroke-width': 1.2 }),
+               svgEl('path', { d: moulding(x + 8, y + 8, w - 16, ht - 16, phone ? 5 : 9), 'stroke-width': .6 }));
+      low = Math.max(low, y + ht);
+    });
+    const dado = Math.min(H - 20, low + (phone ? 22 : 40));
+    g.append(svgEl('path', { d: `M0 ${dado}H${W}M0 ${dado + 9}H${W}`, 'stroke-width': .9 }));
+    hallDeco.replaceChildren(g);
+  }
+
+  // ---------- Gold dust: one fixed canvas behind the whole page, seen only through the see-through
+  // reels band and footer. Each mote drifts on its own and slides with the page at 12-50% of the scroll speed
+  // (bigger, nearer motes faster), so it reads as a deeper layer rather than moving in step with the sections.
+  const VOID = (() => {
+    const c = document.querySelector('canvas.void'), x = c.getContext('2d'), dpr = Math.min(2, devicePixelRatio || 1);
+    const mote = (() => { const m = document.createElement('canvas'), s = 64; m.width = m.height = s; const g = m.getContext('2d');
+      const gr = g.createRadialGradient(s / 2, s / 2, 0, s / 2, s / 2, s / 2);
+      [[0, 'rgba(255,240,200,1)'], [.18, 'rgba(245,214,150,.8)'], [.45, 'rgba(230,180,90,.18)'], [1, 'rgba(230,180,90,0)']].forEach(([o, col]) => gr.addColorStop(o, col));
+      g.fillStyle = gr; g.fillRect(0, 0, s, s); return m; })();
+    let W = 0, H = 0, motes = [], raf = 0, last = 0;
+    const live = new Set(), seen = [document.querySelector('.reel'), document.querySelector('.footer')];
+    function seed() {
+      W = c.clientWidth; H = c.clientHeight; c.width = Math.round(W * dpr); c.height = Math.round(H * dpr);
+      const r = rng(W * 7 + H);
+      motes = Array.from({ length: Math.round(W * H / 15000) }, () => { const s = 4 + r() ** 2 * 17;
+        return { x: r() * W, y: r() * H * 3, s, k: .12 + (s - 4) / 17 * .38, vx: (r() - .5) * .12, vy: -.04 - r() * .14, a: .3 + r() * .55, t: r() * 6.3, f: .4 + r() * 1.2 }; });
+    }
+    function draw(dt) {
+      x.setTransform(dpr, 0, 0, dpr, 0, 0); x.clearRect(0, 0, W, H); x.globalCompositeOperation = 'lighter';
+      const sy = scrollY, span = H + 40;
+      motes.forEach(p => {
+        p.t += .02 * p.f * dt; p.x += (p.vx + Math.sin(p.t * .5) * .06) * dt; p.y += p.vy * dt;
+        if (p.x < -12) p.x = W + 12; if (p.x > W + 12) p.x = -12;
+        const y = (((p.y - sy * p.k) % span) + span) % span - 20;
+        x.globalAlpha = p.a * (.55 + .45 * Math.sin(p.t)); x.drawImage(mote, p.x - p.s / 2, y - p.s / 2, p.s, p.s);
+      });
+    }
+    function loop(t) { const dt = Math.min(3, last ? (t - last) / 16.7 : 1); last = t; draw(dt); raf = live.size ? requestAnimationFrame(loop) : 0; if (!raf) last = 0; }
+    const io = new IntersectionObserver(es => { es.forEach(e => e.isIntersecting ? live.add(e.target) : live.delete(e.target)); if (live.size && !raf && !calm) raf = requestAnimationFrame(loop); });
+    // reduced motion: no drift, but the layer still keeps its depth as you scroll
+    if (calm) addEventListener('scroll', () => { if (!c.hidden && live.size) draw(0); }, { passive: true });
+    return {
+      reset() {
+        seed(); draw(0); seen.forEach(s => io.observe(s));
+      },
+    };
+  })();
+
+  // ---------- Layout: only a width change re-lays (phones fire resize as the toolbar slides) ----------
+  let lastW = 0;
+  function relayout(force) {
+    if (!force && root.clientWidth === lastW) return;
+    lastW = root.clientWidth; screenH = innerHeight;
+    layoutName(); drawSeams(); layoutCredits(); drawHall(); VOID.reset();
+  }
+  relayout(true);
+  playHero();
+  document.fonts.ready.then(() => relayout(true));
+  addEventListener('resize', () => relayout(false));
+
+</script>
+</body>
+</html>
